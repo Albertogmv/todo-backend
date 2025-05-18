@@ -1,0 +1,7 @@
+Django>=5.0
+djangorestframework
+gunicorn
+psycopg2-binary
+pytest
+pytest-django
+pytest-cov

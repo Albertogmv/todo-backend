@@ -1,0 +1,27 @@
+
+services:
+  web:
+    build: .
+    command: gunicorn app.todo_backend.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/code
+    working_dir: /code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=todo_backend.settings
+      - PYTHONPATH=/code/app
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: todo_db
+      POSTGRES_USER: todo_user
+      POSTGRES_PASSWORD: todo_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
