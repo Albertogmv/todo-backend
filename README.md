@@ -19,3 +19,14 @@ Este repositorio es una prueba técnica que demuestra cómo construir un backend
     ⚙️ CI/CD con GitHub Actions
     
     ☸️ Kubernetes (manifests listos para despliegue)
+
+    🐇 Celery para tareas en segundo plano/asíncronas
+
+## 🧠 ¿Qué cubre este proyecto?
+
+- ✅ Arquitectura modular y escalable con Django y DRF.
+- ✅ Contenedorización completa con Docker.
+- ✅ Orquestación con Docker Compose y Kubernetes.
+- ✅ Tareas asíncronas con Celery (por ejemplo, envío de notificaciones o procesamiento de datos en background).
+- ✅ Pipeline CI/CD en GitHub Actions: instalación, test y build automático.
+- ✅ Pruebas automatizadas con Pytest y configuración de `pytest.ini`.
