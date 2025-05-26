@@ -10,9 +10,12 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - redis
     environment:
       - DJANGO_SETTINGS_MODULE=todo_backend.settings
       - PYTHONPATH=/code/app
+      - CELERY_BROKER_URL=redis://redis:6379/0  # <--- BROKER PARA CELERY
+
 
   db:
     image: postgres:14
@@ -22,6 +25,26 @@ services:
       POSTGRES_PASSWORD: todo_pass
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  celery:
+    build: .
+    command: celery -A app.todo_backend worker --loglevel=info
+    volumes:
+      - .:/code
+    working_dir: /code
+    depends_on:
+      - redis
+      - web
+    environment:
+      - DJANGO_SETTINGS_MODULE=todo_backend.settings
+      - PYTHONPATH=/code/app
+      - CELERY_BROKER_URL=redis://redis:6379/0
 
 volumes:
   postgres_data:
